@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+import { useActions } from './hooks/use-actions';
+import styled from 'styled-components';
+import Dropdown from './components/Dropdown';
+import Table from './components/Table';
+import Input from './components/Input';
+import UserCard from './components/UserCard';
 
-function App() {
+const Div = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const Wrapper = styled.div`
+  padding: 30px 50px;
+`;
+const App: React.FC = () => {
+  const [showUserCard, setShowUserCard] = useState(false);
+  const { fetchUsers } = useActions();
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <Div>
+        <Input />
+        <Dropdown />
+      </Div>
+      <Table showUser={setShowUserCard} />
+      {showUserCard && <UserCard />}
+    </Wrapper>
   );
-}
+};
 
 export default App;
