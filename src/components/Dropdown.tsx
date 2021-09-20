@@ -1,5 +1,7 @@
+import { table } from 'console';
 import styled from 'styled-components';
 import { useActions } from '../hooks/use-actions';
+import { useTypedSelector } from '../hooks/use-typed-selector';
 const Button = styled.button`
   background-color: #009879;
   color: white;
@@ -27,18 +29,31 @@ const Wrapper = styled.div`
     flex-direction: column;
   }
 `;
-
-const Dropdown: React.FC = () => {
+interface DropdownProps {
+  setCurrentPage: (arg: number) => void;
+}
+const Dropdown: React.FC<DropdownProps> = ({ setCurrentPage }) => {
   const { filterUsers } = useActions();
+  const allStates = useTypedSelector(({ table }) => table!.states);
   return (
     <Wrapper>
       <Button>Filter by state</Button>
+
       <DropdownContent>
-        <Button onClick={() => filterUsers('All', 'state')}>All</Button>
-        <Button onClick={() => filterUsers('WI', 'state')}>WI</Button>
-        <Button onClick={() => filterUsers('TN', 'state')}>TN</Button>
-        <Button onClick={() => filterUsers('FL', 'state')}>FL</Button>
-        <Button onClick={() => filterUsers('NE', 'state')}>NE</Button>
+        <Button
+          onClick={() => filterUsers('All', 'state') && setCurrentPage(1)}
+        >
+          All
+        </Button>
+        {allStates.map((state) => {
+          return (
+            <Button
+              onClick={() => filterUsers(state, 'state') && setCurrentPage(1)}
+            >
+              {state}
+            </Button>
+          );
+        })}
       </DropdownContent>
     </Wrapper>
   );

@@ -11,6 +11,7 @@ interface tableState {
     state: string;
   };
   foundUserById?: User;
+  states: string[];
 }
 
 const initialTableState = {
@@ -34,6 +35,7 @@ const initialTableState = {
     firstName: '',
     state: 'All',
   },
+  states: [],
 };
 const reducer = produce(
   (state: tableState = initialTableState, action: Action) => {
@@ -48,7 +50,9 @@ const reducer = produce(
           .filter(
             (user) =>
               state.params.firstName === '' ||
-              user.firstName.includes(state.params.firstName)
+              user.firstName
+                .toLowerCase()
+                .includes(state.params.firstName.toLowerCase())
           )
           .filter(
             (user) =>
@@ -100,6 +104,12 @@ const reducer = produce(
             user.id === action.payload.id &&
             user.firstName === action.payload.firstName
         );
+        return state;
+      case ActionTypes.FIND_ALL_STATES:
+        state.states = state.users.map((user) => user.adress.state);
+        state.states = state.states.filter(function (item, pos) {
+          return state.states.indexOf(item) == pos;
+        });
         return state;
       default:
         return state;

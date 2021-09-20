@@ -9,13 +9,16 @@ const StyledInput = styled.input`
   box-shadow: none;
   outline: none;
 `;
-
-const Input: React.FC = () => {
+interface InputProps {
+  setCurrentPage: (arg: number) => void;
+}
+const Input: React.FC<InputProps> = ({setCurrentPage}) => {
   const { filterUsers } = useActions();
   const [inputFirstNameValue, setInputFirstNameValue] = useState('');
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     filterUsers(e.target.value,'firstName');
     setInputFirstNameValue(e.target.value);
+    setCurrentPage(1)
   };
 
   return (

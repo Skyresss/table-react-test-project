@@ -3,4 +3,5 @@ export enum ActionTypes {
   FETCH_USERS = 'fetch_users',
   FILTER_COLUMNS = 'filter_columns',
   FIND_USER_BY_ID = 'find_user_by_id',
+  FIND_ALL_STATES ='find_all_states'
 }

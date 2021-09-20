@@ -41,3 +41,8 @@ export const findUserByID = (id: number, firstName: string) => {
     },
   };
 };
+export const findAllStates = () => {
+  return {
+    type: ActionTypes.FIND_ALL_STATES
+  }
+}

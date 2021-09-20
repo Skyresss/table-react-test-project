@@ -42,14 +42,20 @@ const StyledTable = styled.table`
 `;
 interface TableProps {
   showUser: (arg: boolean) => void;
+  setCurrentPage: (arg: number) => void;
+  currentPage: number;
 }
-const Table: React.FC<TableProps> = ({ showUser }) => {
+const Table: React.FC<TableProps> = ({
+  showUser,
+  setCurrentPage,
+  currentPage,
+}) => {
   const users = useTypedSelector(({ table }) => table?.filteredUsers);
 
   const [direction, setDirection] = useState<'ascending' | 'descending'>(
     'ascending'
   );
-  const [currentPage, setCurrentPage] = useState(1);
+
   const pagesCount = useMemo(
     () => Math.ceil(users ? users.length / 20 : 1),
     [users]

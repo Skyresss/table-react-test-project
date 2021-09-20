@@ -20,15 +20,19 @@ export interface filterColumnsAction {
     value: 'id' | 'firstName' | 'lastName' | 'phone' | 'state' | 'email';
   };
 }
-export interface findUserByID {
+export interface findUserByIdAction {
   type: ActionTypes.FIND_USER_BY_ID;
   payload: {
     id: number;
     firstName: string;
   };
 }
+export interface findAllStatesAction {
+  type: ActionTypes.FIND_ALL_STATES
+}
 export type Action =
   | fetchUsersAction
   | filterUsersAction
   | filterColumnsAction
-  | findUserByID;
+  | findUserByIdAction
+  | findAllStatesAction
