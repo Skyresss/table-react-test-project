@@ -1,4 +1,3 @@
-import { table } from 'console';
 import styled from 'styled-components';
 import { useActions } from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector';
